@@ -1,0 +1,14 @@
+.forecast {
+  padding: 42px 54px 38px 73px;
+}
+
+@media (min-width: 834px) and (max-width: 1439.5px) {
+  .forecast {
+    padding: 61px 28px 0px;
+  }
+}
+@media (max-width: 834px) {
+  .forecast {
+    padding: 50px 0 59px;
+  }
+}

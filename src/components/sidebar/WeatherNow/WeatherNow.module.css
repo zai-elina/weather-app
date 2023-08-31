@@ -1,0 +1,82 @@
+.weather {
+  margin-top: 18px;
+  background-image: url('../../../../public/images/Cloud-background.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-align: center;
+  background-blend-mode: difference;
+  background-color: var(--bg2-color);
+  transition: all 0.5s ease;
+}
+
+.weatherImage {
+  margin: 24px 130px 0;
+}
+
+.weatherTemperature {
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 113.76px;
+}
+
+.weatherTemperatureSpan {
+  font-size: 50px;
+  font-weight: 500;
+  line-height: 59px;
+}
+.weatherPrecipitation {
+  margin-top: 17px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 36px;
+}
+.weatherFelt {
+  margin-top: 17px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  color: var(--support-color);
+  text-align: center;
+}
+
+.todayInformation {
+  display: flex;
+  column-gap: 88px;
+  margin: 78px 86px 0;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  color: var(--support-color);
+}
+
+@media (min-width: 834px) and (max-width: 1439.5px) {
+  .weatherImage {
+    margin: 36px 0;
+  }
+  .weatherTemperature {
+    margin-top: 192px;
+  }
+  .todayInformation {
+    margin: 78px 21px 0;
+  }
+}
+
+@media (max-width: 834px) {
+  .weather {
+    background-image: url('../../../../public/images/Cloud-background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+  }
+  .weatherImage {
+    margin: 0;
+  }
+  .weatherTemperature {
+    margin-top: -27px;
+  }
+  .todayInformation {
+    margin: 78px auto 0;
+    justify-content: center;
+  }
+}

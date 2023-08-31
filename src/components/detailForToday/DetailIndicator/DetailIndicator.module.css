@@ -1,0 +1,36 @@
+.detailIndicator {
+  text-align: center;
+  width: 320px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.05);
+  background: var(--bg2-color);
+  padding-bottom: 24px;
+}
+.detailIndicatorTitle {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+}
+.detailIndicatorValue {
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 76px;
+}
+.detailIndicatorValueName {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 43px;
+}
+.indicatorImage {
+  margin-top: 3px;
+  display: flex;
+  column-gap: 11px;
+  justify-content: center;
+  align-items: center;
+}
+.indicatorImageTitle {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 21px;
+}

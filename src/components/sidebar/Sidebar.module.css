@@ -1,0 +1,19 @@
+.sidebar {
+  background-color: var(--bg2-color);
+  flex: 460px 0;
+  transition: all 0.5s ease;
+  padding-bottom: 33px;
+}
+
+@media (min-width: 834px) and (max-width: 1439.5px) {
+  .sidebar {
+    flex: 329px 0;
+    height: 1194px;
+  }
+}
+@media (max-width: 834px) {
+  .sidebar {
+    width: 100vw;
+    height: 667px;
+  }
+}

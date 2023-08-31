@@ -1,0 +1,25 @@
+.sidebarHeader {
+  margin-top: 42px;
+  margin-left: 41px;
+  margin-right: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebarButton {
+  width: 180px;
+  height: 50px;
+}
+
+@media (min-width: 834px) and (max-width: 1439.5px) {
+  .sidebarHeader {
+    margin-top: 53px;
+    margin-left: 28px;
+    margin-right: 21px;
+  }
+}
+@media (max-width: 340px) {
+  .sidebarHeader {
+    column-gap: 10px;
+  }
+}

@@ -1,0 +1,41 @@
+.detailForToday {
+  margin: 0 120px 10px 140px;
+}
+.detailForWrapper {
+  margin-top: 19px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 80px;
+  max-width: 720px;
+}
+@media (min-width: 834px) and (max-width: 1439.5px) {
+  .detailForToday {
+    margin: 42px 0;
+    width: 450px;
+  }
+  .detailForTitle {
+    margin-left: 48px;
+  }
+  .detailForWrapper {
+    margin-top: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 27px;
+  }
+}
+@media (max-width: 834px) {
+  .detailForToday {
+    margin: 0;
+  }
+  .detailForTitle {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .detailForWrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 96px;
+  }
+}

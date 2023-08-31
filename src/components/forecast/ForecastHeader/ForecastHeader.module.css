@@ -1,0 +1,42 @@
+.forecastHeader {
+  display: flex;
+}
+.forecastTitle {
+  margin-left: 64px;
+}
+.tabsNav {
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+  column-gap: 16px;
+  color: var(--support-color);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+}
+.tabsNavItem {
+  padding-top: 4px;
+  padding-bottom: 12px;
+  cursor: pointer;
+}
+@media (max-width: 834px) {
+  .forecastHeader {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 30px;
+  }
+  .forecastTitle {
+    margin: 0;
+  }
+  .tabsNav {
+    margin-bottom: 15px;
+    margin-left: 0;
+    column-gap: 55px;
+  }
+}
+@media (min-width: 834px) and (max-width: 1439.5px) {
+  .forecastTitle {
+    margin-left: 48px;
+  }
+}

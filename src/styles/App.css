@@ -1,0 +1,103 @@
+:root {
+  --main-color: #48484a;
+  --support-color: #acacac;
+  --bg-color: #f1f1f1;
+  --bg2-color: #fff;
+  --hover: black;
+}
+[dark] {
+  --main-color: rgba(230, 230, 230, 1);
+  --support-color: rgba(109, 109, 109, 1);
+  --bg-color: rgba(16, 14, 28, 1);
+  --bg2-color: rgba(33, 35, 49, 1);
+  --hover: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../public/fonts/Rubik-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../public/fonts/Rubik-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../public/fonts/Rubik-Black.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('../../public/fonts/Rubik-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+}
+body {
+  font-family: 'Rubik', sans-serif;
+  letter-spacing: 0em;
+  color: var(--main-color);
+  background-color: var(--bg-color);
+  transition: all 0.5s ease;
+}
+button,
+button:active,
+button:focus {
+  border: none;
+  cursor: pointer;
+}
+.main {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.center-block {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: var(--bg-color);
+  flex: auto 1;
+  transition: all 0.5s ease;
+}
+
+button {
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  text-align: center;
+  background-color: var(--bg2-color);
+  color: var(--main-color);
+  border-radius: 10px;
+  border: 2px solid var(--support-color);
+  cursor: pointer;
+  transition: border 0.5s;
+}
+button:hover {
+  background-color: var(--support-color);
+  border: 2px solid var(--hover);
+}
+button:active,
+button:focus {
+  border: none;
+  cursor: pointer;
+}
+@media (max-width: 834px) {
+  .main {
+    flex-direction: column;
+  }
+}

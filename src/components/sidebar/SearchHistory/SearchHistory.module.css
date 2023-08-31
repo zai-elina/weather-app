@@ -1,0 +1,42 @@
+.historyBlock {
+  margin: 30px 46px;
+  flex-direction: column;
+  column-gap: 10px;
+  display: flex;
+  align-items: center;
+  color: var(--main-color);
+  transition: all 0.5s;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 18px;
+}
+.historyCity {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  padding: 26px 30px;
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+.historyCity:hover {
+  background-color: var(--bg-color);
+}
+.historyCitySvg path {
+  fill-opacity: 0;
+  stroke-opacity: 0;
+  transition: all 0.5s;
+}
+.historyCity:hover .historyCitySvg path {
+  fill-opacity: 1;
+  stroke-opacity: 1;
+}
+@media (min-width: 834px) and (max-width: 1439.5px) {
+  .historyBlock {
+    margin: 30px 27px;
+  }
+}
+@media (max-width: 834px) {
+  .historyBlock {
+    margin: 30px 27px;
+  }
+}
