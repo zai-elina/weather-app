@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './TabsPanel.module.css';
 import { TabsCards } from './TabsCards/TabsCards';
 
-const TabsPanel = ({ activeTab }) => {
+const TabsPanel = ({ activeTab, isLoadingTabsCards }) => {
   return (
     <div className={classes.tabsPanel}>
       <div className={classes.tabsPanelContent}>
@@ -30,7 +30,10 @@ const TabsPanel = ({ activeTab }) => {
             />
           </svg>
         </div>
-        <TabsCards activeTab={activeTab} />
+        <TabsCards
+          isLoadingTabsCards={isLoadingTabsCards}
+          activeTab={activeTab}
+        />
         <div className={classes.buttonPrevNext}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

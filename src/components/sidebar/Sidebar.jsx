@@ -3,20 +3,27 @@ import classes from './Sidebar.module.css';
 import SidebarHeader from './SidebarHeader/SidebarHeader';
 import WeatherNow from './WeatherNow/WeatherNow';
 import SearchForm from './SearchForm/SearchForm';
+import Loader from '../loader/Loader';
 
-export default function Sidebar() {
+export default function Sidebar({ isLoading, setLat, setLon }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [city, setCity] = useState('Москва');
   const [searchHistory, setSearchHistory] = useState([]);
 
   return (
     <>
       <section className={classes.sidebar}>
         <SidebarHeader setIsOpen={setIsOpen} />
-        <WeatherNow city={city} />
+        {isLoading ? (
+          <div className={classes.laoder}>
+            <Loader />
+          </div>
+        ) : (
+          <WeatherNow />
+        )}
       </section>
       <SearchForm
-        setCity={setCity}
+        setLat={setLat}
+        setLon={setLon}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         searchHistory={searchHistory}

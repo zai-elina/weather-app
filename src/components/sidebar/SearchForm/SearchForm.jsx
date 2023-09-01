@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import classes from './SearchForm.module.css';
 import { useMediaQuery } from 'react-responsive';
 import { getCity } from '../../../api/api';
 import SearchHistory from '../SearchHistory/SearchHistory';
+import { WeatherContext } from '../../../providers/WeatherProvider';
 
 function Form({
-  setCity,
+  setLat,
+  setLon,
   setIsOpen,
   searchHistory,
   setSearchHistory,
   setErrorSearchCity,
 }) {
   const [inputCity, setInputCity] = useState('');
+  const { addLocation } = useContext(WeatherContext);
 
   const searchCity = (e) => {
     e.preventDefault();
@@ -19,23 +22,33 @@ function Form({
     if (match) {
       getCity(inputCity)
         .then((data) => {
+          if (!/^[а-яё\(\)-\s]*$/i.test(data[0]?.name)) {
+            setErrorSearchCity('Упс! Город не найден, попробуйте другой');
+            throw new Error('Упс! Город не найден, попробуйте другой');
+          }
           const nameCity = data[0]?.name;
-          setCity(nameCity);
-          console.log(data[0].address);
+
+          addLocation(nameCity);
+          setLat(data[0].lat);
+          setLon(data[0].lon);
+
           setIsOpen(false);
+
           searchHistory.length === 0
-            ? setSearchHistory([inputCity])
+            ? setSearchHistory([nameCity])
             : searchHistory.length < 5
-            ? setSearchHistory([inputCity, ...searchHistory])
+            ? setSearchHistory([nameCity, ...searchHistory])
             : setSearchHistory([
-              inputCity,
+                nameCity,
                 ...searchHistory.filter((item, index) => index != 0),
               ]);
+
           setErrorSearchCity(null);
         })
-        .catch((error) =>
-          setErrorSearchCity('Упс! Город не найден, попробуйте другой')
-        )
+        .catch((error) => {
+          console.log(error);
+          setErrorSearchCity('Упс! Город не найден, попробуйте другой');
+        })
         .finally(() => {
           setInputCity('');
         });
@@ -62,7 +75,8 @@ function Form({
 }
 
 function SearchForm({
-  setCity,
+  setLat,
+  setLon,
   isOpen,
   setIsOpen,
   searchHistory,
@@ -92,7 +106,8 @@ function SearchForm({
         />
       </svg>
       <Form
-        setCity={setCity}
+        setLat={setLat}
+        setLon={setLon}
         setIsOpen={setIsOpen}
         searchHistory={searchHistory}
         setSearchHistory={setSearchHistory}
@@ -101,7 +116,6 @@ function SearchForm({
       <SearchHistory
         searchHistory={searchHistory}
         setIsOpen={setIsOpen}
-        setCity={setCity}
         errorSearchCity={errorSearchCity}
       />
     </div>

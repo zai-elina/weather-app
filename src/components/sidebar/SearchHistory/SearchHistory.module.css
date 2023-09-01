@@ -31,6 +31,16 @@
   fill-opacity: 1;
   stroke-opacity: 1;
 }
+
+.activeCity {
+  background-color: var(--bg-color);
+  cursor: pointer;
+}
+.activeCity .historyCitySvg path {
+  fill-opacity: 1;
+  stroke-opacity: 1;
+}
+
 @media (min-width: 834px) and (max-width: 1439.5px) {
   .historyBlock {
     margin: 30px 27px;

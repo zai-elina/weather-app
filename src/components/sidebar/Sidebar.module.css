@@ -5,6 +5,12 @@
   padding-bottom: 33px;
   height: 100vh;
 }
+.laoder {
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 @media (min-width: 834px) and (max-width: 1439.5px) {
   .sidebar {

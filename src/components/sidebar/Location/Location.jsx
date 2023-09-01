@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classes from './Location.module.css';
+import { WeatherContext } from '../../../providers/WeatherProvider';
 
-function Location({ city }) {
+function Location() {
+  const { location } = useContext(WeatherContext);
   return (
     <div className={classes.location}>
       <svg
@@ -16,7 +18,7 @@ function Location({ city }) {
           fill="#EC6E4D"
         />
       </svg>
-      <div>{city}</div>
+      <div>{location}</div>
     </div>
   );
 }

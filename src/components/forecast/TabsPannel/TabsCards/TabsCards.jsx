@@ -1,42 +1,20 @@
 import classes from './TabsCards.module.css';
 import { weekTempList, hoursTempList } from '../../../../constant';
+import { TabsCard } from '../TabsCard/TabsCard';
+import Loader from '../../../loader/Loader';
 
-function TabsCard({ card, activeTab }) {
-  return (
-    <div className={classes.tabsCardsItem}>
-      {activeTab === 'week' ? (
-        <div className={classes.tabsCardsItemDate}>
-          {card.day} {card.date} {card.month}
-        </div>
-      ) : (
-        <div className={classes.tabsCardsItemDate}>{card.time}</div>
-      )}
-      <img
-        className={classes.tabsCardsItemImage}
-        src={card.imgUrl}
-        alt="Погода"
-      />
+export function TabsCards({ activeTab, isLoadingTabsCards }) {
+  const loadingCards = ['', '', '', '', '', ''];
 
-      {activeTab === 'week' ? (
-        <div className={classes.tabsCardsItemTempreature}>
-          <p>{card.maxTemp}°C</p>
-          <span style={{ color: 'var(--support-color)' }}>
-            {card.minTemp}°C
-          </span>
-        </div>
-      ) : (
-        <div className={classes.tabsCardsItemTempreature}>
-          <p>{card.temp}°C</p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-export function TabsCards({ activeTab }) {
   return (
     <div className={classes.tabsCards}>
-      {activeTab === 'week'
+      {isLoadingTabsCards
+        ? loadingCards.map((item, index) => (
+            <div key={index} className={classes.tabsCardsItem}>
+              <Loader/>
+            </div>
+          ))
+        : activeTab === 'week'
         ? weekTempList.map((card) => (
             <TabsCard key={card.id} card={card} activeTab={activeTab} />
           ))

@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classes from './SearchHistory.module.css';
+import { WeatherContext } from '../../../providers/WeatherProvider';
 
-const SearchHistory = ({
-  searchHistory,
-  setCity,
-  setIsOpen,
-  errorSearchCity,
-}) => {
+const SearchHistory = ({ searchHistory, setIsOpen, errorSearchCity }) => {
+  const { location, addLocation } = useContext(WeatherContext);
+
   const handleCityInHistory = (city) => {
-    setCity(city);
+    addLocation(city);
     setIsOpen(false);
   };
   return (
@@ -16,7 +14,9 @@ const SearchHistory = ({
       {errorSearchCity ? <p style={{ color: 'red' }}>{errorSearchCity}</p> : ''}
       {searchHistory.map((item, index) => (
         <div
-          className={classes.historyCity}
+          className={`${classes.historyCity}${
+            location === item ? ` ${classes.activeCity}` : ''
+          }`}
           key={index}
           onClick={() => handleCityInHistory(item)}
         >

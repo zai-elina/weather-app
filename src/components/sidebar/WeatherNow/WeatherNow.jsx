@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './WeatherNow.module.css';
 import Location from '../Location/Location';
 
-function WeatherNow({ city }) {
+function WeatherNow() {
   return (
     <>
       <div className={classes.weather}>
@@ -44,7 +44,7 @@ function WeatherNow({ city }) {
         <div>Сегодня</div>
         <div>Вс, 13 мар</div>
       </div>
-      <Location city={city} />
+      <Location />
     </>
   );
 }
