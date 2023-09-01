@@ -4,38 +4,43 @@ import { useMediaQuery } from 'react-responsive';
 import { getCity } from '../../../api/api';
 import SearchHistory from '../SearchHistory/SearchHistory';
 
-function Form({ setCity, setIsOpen, searchHistory, setSearchHistory }) {
+function Form({
+  setCity,
+  setIsOpen,
+  searchHistory,
+  setSearchHistory,
+  setErrorSearchCity,
+}) {
   const [inputCity, setInputCity] = useState('');
 
   const searchCity = (e) => {
     e.preventDefault();
-    const match = /^[а-яё-]*$/i.test(inputCity);
+    const match = /^[а-яё\(\)-\s]*$/i.test(inputCity);
     if (match) {
       getCity(inputCity)
         .then((data) => {
-          const nameCity =
-            data[0].address.city ||
-            data[0].address.town ||
-            data[0].address.boundary ||
-            data[0].address.state;
+          const nameCity = data[0]?.name;
           setCity(nameCity);
           console.log(data[0].address);
           setIsOpen(false);
           searchHistory.length === 0
-            ? setSearchHistory([nameCity])
+            ? setSearchHistory([inputCity])
             : searchHistory.length < 5
-            ? setSearchHistory([...searchHistory, nameCity])
+            ? setSearchHistory([inputCity, ...searchHistory])
             : setSearchHistory([
+              inputCity,
                 ...searchHistory.filter((item, index) => index != 0),
-                nameCity,
               ]);
+          setErrorSearchCity(null);
         })
-        .catch((error) => alert('Упс! Город не найден, попробуйте другой'))
+        .catch((error) =>
+          setErrorSearchCity('Упс! Город не найден, попробуйте другой')
+        )
         .finally(() => {
           setInputCity('');
         });
     } else {
-      alert('Введите название города на русском языке');
+      setErrorSearchCity('Введите название города на русском языке');
       setInputCity('');
     }
   };
@@ -63,6 +68,7 @@ function SearchForm({
   searchHistory,
   setSearchHistory,
 }) {
+  const [errorSearchCity, setErrorSearchCity] = useState(null);
   const isMobile = useMediaQuery({
     query: '(max-width: 834px)',
   });
@@ -90,8 +96,14 @@ function SearchForm({
         setIsOpen={setIsOpen}
         searchHistory={searchHistory}
         setSearchHistory={setSearchHistory}
+        setErrorSearchCity={setErrorSearchCity}
       />
-      <SearchHistory searchHistory={searchHistory} setIsOpen={setIsOpen} setCity={setCity}/>
+      <SearchHistory
+        searchHistory={searchHistory}
+        setIsOpen={setIsOpen}
+        setCity={setCity}
+        errorSearchCity={errorSearchCity}
+      />
     </div>
   );
 }

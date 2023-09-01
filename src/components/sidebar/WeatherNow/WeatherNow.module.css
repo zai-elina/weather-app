@@ -54,11 +54,14 @@
   .weatherImage {
     margin: 36px 0;
   }
-  .weatherTemperature {
-    margin-top: 192px;
-  }
   .todayInformation {
-    margin: 78px 21px 0;
+    margin: 20px 21px 0;
+  }
+  .weatherPrecipitation {
+    margin-top: 7px;
+  }
+  .weatherFelt {
+    margin-top: 7px;
   }
 }
 

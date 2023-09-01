@@ -1,13 +1,19 @@
 import React from 'react';
 import classes from './SearchHistory.module.css';
 
-const SearchHistory = ({ searchHistory, setCity, setIsOpen }) => {
+const SearchHistory = ({
+  searchHistory,
+  setCity,
+  setIsOpen,
+  errorSearchCity,
+}) => {
   const handleCityInHistory = (city) => {
     setCity(city);
     setIsOpen(false);
   };
   return (
     <div className={classes.historyBlock}>
+      {errorSearchCity ? <p style={{ color: 'red' }}>{errorSearchCity}</p> : ''}
       {searchHistory.map((item, index) => (
         <div
           className={classes.historyCity}

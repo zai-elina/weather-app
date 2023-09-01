@@ -66,12 +66,14 @@ button:focus {
   height: 100%;
 }
 .center-block {
+  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
   background: var(--bg-color);
   flex: auto 1;
   transition: all 0.5s ease;
+  overflow-y: scroll;
 }
 
 button {
@@ -99,5 +101,8 @@ button:focus {
 @media (max-width: 834px) {
   .main {
     flex-direction: column;
+  }
+  .center-block {
+    overflow-y: none;
   }
 }

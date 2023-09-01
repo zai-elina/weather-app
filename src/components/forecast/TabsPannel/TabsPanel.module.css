@@ -14,55 +14,11 @@
 .buttonPrevNext svg circle {
   fill: var(--bg2-color);
 }
-.tabsCards {
-  display: flex;
-  gap: 24px;
-  max-width: 720px;
-  flex-wrap: wrap;
-  overflow: hidden;
-  height: 144px;
-}
-.tabsCardsItem {
-  position: relative;
-  width: 100px;
-  height: 143px;
-  border-radius: 8px;
-  background: var(--bg2-color);
-  box-shadow: 0px 7px 12px 0px rgba(0, 0, 0, 0.05);
-}
-.tabsCardsItemDate {
-  padding-top: 17px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 400;
-}
-.tabsCardsItemImage {
-  position: absolute;
-  top: 24px;
-  width: 100px;
-  height: 100px;
-}
-.tabsCardsItemTempreature {
-  position: relative;
-  top: 76px;
-  display: flex;
-  justify-content: space-around;
-  font-size: 14px;
-  font-weight: 400;
-}
 
 @media (min-width: 834px) and (max-width: 1439.5px) {
   .tabsPanel {
     max-width: 451px;
     margin: 18px auto;
-  }
-  .tabsCards {
-    max-width: 450px;
-    height: 143px;
-    flex-wrap: wrap;
-    overflow: hidden;
-    justify-content: center;
-    align-items: center;
   }
 }
 @media (max-width: 834px) {
@@ -74,14 +30,5 @@
   }
   .buttonPrevNext {
     display: none;
-  }
-  .tabsCards {
-    height: 100%;
-    max-width: 255px;
-    flex-wrap: wrap;
-    justify-content: start;
-    align-items: center;
-    gap: 30px 55px;
-    overflow: visible;
   }
 }
