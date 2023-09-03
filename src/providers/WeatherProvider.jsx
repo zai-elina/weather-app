@@ -1,7 +1,7 @@
 const { createContext, useState } = require('react');
 
 export const WeatherContext = createContext({
-  location: 'Москва',
+  location: '',
   addLocation: () => {},
 });
 
@@ -13,9 +13,7 @@ export const WeatherProvider = ({ children }) => {
   };
 
   return (
-    <WeatherContext.Provider
-      value={{ location, addLocation }}
-    >
+    <WeatherContext.Provider value={{ location, addLocation }}>
       {children}
     </WeatherContext.Provider>
   );

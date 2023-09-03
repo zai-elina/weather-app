@@ -7,6 +7,7 @@ const SearchHistory = ({ searchHistory, setIsOpen, errorSearchCity }) => {
 
   const handleCityInHistory = (city) => {
     addLocation(city);
+    localStorage.setItem('location', nameCity);
     setIsOpen(false);
   };
   return (

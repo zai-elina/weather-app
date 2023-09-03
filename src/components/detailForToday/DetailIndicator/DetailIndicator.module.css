@@ -34,3 +34,39 @@
   font-weight: 300;
   line-height: 21px;
 }
+
+.progressbarContainer {
+  margin-left: 25px;
+  margin-right: 22px;
+}
+
+.progressbar {
+  height: 11px;
+  position: relative;
+  background: #e6e6e6;
+  border-radius: 10px;
+}
+
+.progressbar span {
+  display: block;
+  height: 100%;
+  background-color: #ec6e4d;
+  background-image: linear-gradient(center bottom, #ec6e4d 37%, #ec6e4d 69%);
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.percents {
+  display: flex;
+  justify-content: space-between;
+  color: var(--main-color);
+  font-size: 12px;
+  line-height: 14.22px;
+}
+.percentSymbol {
+  display: flex;
+  justify-content: flex-end;
+  color: var(--main-color);
+  font-size: 12px;
+}
