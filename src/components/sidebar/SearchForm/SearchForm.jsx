@@ -6,15 +6,13 @@ import SearchHistory from '../SearchHistory/SearchHistory';
 import { WeatherContext } from '../../../providers/WeatherProvider';
 
 function Form({
-  setLat,
-  setLon,
   setIsOpen,
   searchHistory,
   setSearchHistory,
   setErrorSearchCity,
 }) {
   const [inputCity, setInputCity] = useState('');
-  const { addLocation } = useContext(WeatherContext);
+  const { addLocation, setLat, setLon } = useContext(WeatherContext);
 
   const searchCity = (e) => {
     e.preventDefault();
@@ -36,11 +34,16 @@ function Form({
           setIsOpen(false);
 
           searchHistory.length === 0
-            ? setSearchHistory([nameCity])
+            ? setSearchHistory([
+                { name: nameCity, lat: data[0].lat, lon: data[0].lon },
+              ])
             : searchHistory.length < 5
-            ? setSearchHistory([nameCity, ...searchHistory])
+            ? setSearchHistory([
+                { name: nameCity, lat: data[0].lat, lon: data[0].lon },
+                ...searchHistory,
+              ])
             : setSearchHistory([
-                nameCity,
+                { name: nameCity, lat: data[0].lat, lon: data[0].lon },
                 ...searchHistory.filter((item, index) => index != 0),
               ]);
 
@@ -75,14 +78,7 @@ function Form({
   );
 }
 
-function SearchForm({
-  setLat,
-  setLon,
-  isOpen,
-  setIsOpen,
-  searchHistory,
-  setSearchHistory,
-}) {
+function SearchForm({ isOpen, setIsOpen, searchHistory, setSearchHistory, setIsLoading }) {
   const [errorSearchCity, setErrorSearchCity] = useState(null);
   const isMobile = useMediaQuery({
     query: '(max-width: 834px)',
@@ -107,8 +103,6 @@ function SearchForm({
         />
       </svg>
       <Form
-        setLat={setLat}
-        setLon={setLon}
         setIsOpen={setIsOpen}
         searchHistory={searchHistory}
         setSearchHistory={setSearchHistory}
@@ -118,6 +112,7 @@ function SearchForm({
         searchHistory={searchHistory}
         setIsOpen={setIsOpen}
         errorSearchCity={errorSearchCity}
+        setIsLoading={setIsLoading}
       />
     </div>
   );

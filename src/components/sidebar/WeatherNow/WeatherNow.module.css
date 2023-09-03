@@ -10,7 +10,7 @@
 }
 
 .weatherImage {
-  margin: 24px 130px 0;
+  margin: 0px 130px 0;
 }
 
 .weatherTemperature {
@@ -79,8 +79,7 @@
     margin-top: -27px;
   }
   .todayInformation {
-    margin: 78px auto 0;
+    margin: 50px auto 0;
     justify-content: center;
   }
 }
-

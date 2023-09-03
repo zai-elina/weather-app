@@ -5,13 +5,7 @@ import WeatherNow from './WeatherNow/WeatherNow';
 import SearchForm from './SearchForm/SearchForm';
 import Loader from '../loader/Loader';
 
-export default function Sidebar({
-  temp,
-  feelsLike,
-  isLoading,
-  setLat,
-  setLon,
-}) {
+export default function Sidebar({ isLoading, setIsLoading }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchHistory, setSearchHistory] = useState([]);
 
@@ -24,16 +18,15 @@ export default function Sidebar({
             <Loader />
           </div>
         ) : (
-          <WeatherNow temp={temp} feelsLike={feelsLike}/>
+          <WeatherNow/>
         )}
       </section>
       <SearchForm
-        setLat={setLat}
-        setLon={setLon}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         searchHistory={searchHistory}
         setSearchHistory={setSearchHistory}
+        setIsLoading={setIsLoading}
       />
     </>
   );
