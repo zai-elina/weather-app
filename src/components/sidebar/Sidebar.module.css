@@ -2,8 +2,12 @@
   background-color: var(--bg2-color);
   flex: 460px 0;
   transition: all 0.5s ease;
-  padding-bottom: 33px;
-  height: 100vh;
+  padding-bottom: 20px;
+  min-height: 100vh;
+  overflow-y: scroll;
+}
+.sidebar::-webkit-scrollbar {
+  width: 0;
 }
 .laoder {
   margin-top: 100px;
@@ -20,5 +24,7 @@
 @media (max-width: 834px) {
   .sidebar {
     width: 100vw;
+    min-height: 100vh;
+    overflow: visible;
   }
 }

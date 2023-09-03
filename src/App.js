@@ -31,7 +31,7 @@ function App() {
         setWind(Math.round(data.wind.speed));
         setHumidity(data.main.humidity);
         setVisibility(data.visibility / 1000);
-        setPressure(data.main.pressure);
+        setPressure(Math.round(data.main.pressure * 0.75));
       })
       .catch((error) => alert(error))
       .finally(() => {
@@ -51,7 +51,7 @@ function App() {
           setWind(Math.round(data.wind.speed));
           setHumidity(data.main.humidity);
           setVisibility(data.visibility / 1000);
-          setPressure(data.main.pressure);
+          setPressure(Math.round(data.main.pressure * 0.75));
         })
         .catch((error) => alert(error))
         .finally(() => {

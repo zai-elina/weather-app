@@ -75,6 +75,9 @@ button:focus {
   transition: all 0.5s ease;
   overflow-y: scroll;
 }
+.center-block::-webkit-scrollbar {
+  width: 0;
+}
 
 button {
   font-family: 'Rubik', sans-serif;
@@ -103,6 +106,6 @@ button:focus {
     flex-direction: column;
   }
   .center-block {
-    overflow-y: none;
+    overflow: visible;
   }
 }
