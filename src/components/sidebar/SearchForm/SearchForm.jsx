@@ -29,6 +29,7 @@ function Form({
           const nameCity = data[0]?.name;
 
           addLocation(nameCity);
+          localStorage['location'] = nameCity;
           setLat(data[0].lat);
           setLon(data[0].lon);
 

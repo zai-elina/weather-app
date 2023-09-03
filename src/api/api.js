@@ -22,6 +22,11 @@ export async function getWeatherInformation(lat, lon) {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=ru`
     );
+    
+    if (response.status === 500) {
+      throw new Error('Сервер не отвечает, попробуйте повторить запрос');
+    }
+
     const data = await response.json();
 
     return data;

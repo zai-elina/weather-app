@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './DetailIndicator.module.css';
 
 const DetailIndicator = ({ indicator }) => {
+  const { id, title, name, value } = indicator;
   const styleTop = {
     marginTop: '11px',
   };
@@ -15,22 +16,20 @@ const DetailIndicator = ({ indicator }) => {
   };
   return (
     <div className={classes.detailIndicator}>
-      <h3 className={classes.detailIndicatorTitle}>{indicator.title}</h3>
+      <h3 className={classes.detailIndicatorTitle}>{title}</h3>
       <div
         className={classes.detailIndicatorValue}
-        style={
-          indicator.id === 0 || indicator.id === 1 ? styleTop : styleBottom
-        }
+        style={id === 0 || id === 1 ? styleTop : styleBottom}
       >
-        {indicator.value}{' '}
+        {value}{' '}
         <span
           className={classes.detailIndicatorValueName}
-          style={indicator.id === 3 ? stylePressure : null}
+          style={id === 3 ? stylePressure : null}
         >
-          {indicator.name}
+          {name}
         </span>
       </div>
-      {indicator.id === 0 && (
+      {id === 0 && (
         <div className={classes.indicatorImage}>
           <svg
             width="38"
@@ -45,7 +44,20 @@ const DetailIndicator = ({ indicator }) => {
               fill="#E6E6E6"
             />
           </svg>
-          <div className={classes.indicatorImageTitle}>СЗ</div>
+          {/* <div className={classes.indicatorImageTitle}>СЗ</div> */}
+        </div>
+      )}
+      {id === 1 && value && (
+        <div className={classes.progressbarContainer}>
+          <div className={classes.percents}>
+            <p>0</p>
+            <p>50</p>
+            <p>100</p>
+          </div>
+          <div className={classes.progressbar}>
+            <span style={{ width: `${value}%` }}></span>
+          </div>
+          <div className={classes.percentSymbol}>%</div>
         </div>
       )}
     </div>

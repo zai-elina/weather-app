@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './WeatherNow.module.css';
 import Location from '../Location/Location';
 
-function WeatherNow() {
+function WeatherNow({ temp, feelsLike }) {
   return (
     <>
       <div className={classes.weather}>
@@ -35,11 +35,11 @@ function WeatherNow() {
         </svg>
 
         <div className={classes.weatherTemperature}>
-          1 <span className={classes.weatherTemperatureSpan}>°C</span>
+          {temp} <span className={classes.weatherTemperatureSpan}>°C</span>
         </div>
         <div className={classes.weatherPrecipitation}>Снег</div>
       </div>
-      <p className={classes.weatherFelt}>Ощущается как -3 °C</p>
+      <p className={classes.weatherFelt}>Ощущается как {feelsLike} °C</p>
       <div className={classes.todayInformation}>
         <div>Сегодня</div>
         <div>Вс, 13 мар</div>

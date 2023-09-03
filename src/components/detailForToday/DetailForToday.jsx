@@ -3,12 +3,18 @@ import classes from './DetailForToday.module.css';
 import DetailIndicator from './DetailIndicator/DetailIndicator';
 import detailClasses from './DetailIndicator/DetailIndicator.module.css';
 
-export default function DetailForToday({ isLoading }) {
+export default function DetailForToday({
+  wind,
+  pressure,
+  humidity,
+  visibility,
+  isLoading,
+}) {
   const indicators = [
-    { id: 0, title: 'Скорость ветра', value: 7, name: 'м/с' },
-    { id: 1, title: 'Влажность', value: 84, name: '%' },
-    { id: 2, title: 'Видимость', value: 6.2, name: 'км' },
-    { id: 3, title: 'Давление', value: 742, name: 'мм рт. ст.' },
+    { id: 0, title: 'Скорость ветра', value: wind, name: 'м/с' },
+    { id: 1, title: 'Влажность', value: humidity, name: '%' },
+    { id: 2, title: 'Видимость', value: visibility, name: 'км' },
+    { id: 3, title: 'Давление', value: pressure, name: 'мм рт. ст.' },
   ];
   const loadingDetail = ['', '', '', ''];
 
@@ -19,7 +25,7 @@ export default function DetailForToday({ isLoading }) {
         {isLoading
           ? loadingDetail.map((item, index) => (
               <div key={index} className={detailClasses.detailIndicator}>
-                <Loader/>
+                <Loader />
               </div>
             ))
           : indicators.map((indicator) => (

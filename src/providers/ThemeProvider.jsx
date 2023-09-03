@@ -17,11 +17,12 @@ export const ThemeProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
     if (theme === 'Dark') {
       document.body.setAttribute('dark', '');
+      localStorage.setItem('theme', theme);
     } else {
       document.body.removeAttribute('dark', '');
+      localStorage.setItem('theme', 'Light');
     }
   }, [theme]);
 
