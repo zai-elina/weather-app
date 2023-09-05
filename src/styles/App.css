@@ -101,6 +101,9 @@ button:focus {
   border: none;
   cursor: pointer;
 }
+.disable {
+  opacity: 0.3;
+}
 @media (max-width: 834px) {
   .main {
     flex-direction: column;

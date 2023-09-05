@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import classes from './SearchHistory.module.css';
 import { WeatherContext } from '../../../providers/WeatherProvider';
-import { getWeatherInformation } from '../../../api/api';
+import { getWeatherForHours, getWeatherInformation } from '../../../api/api';
+import { ForecastContext } from '../../../providers/ForecastProvider';
 
 const SearchHistory = ({
   searchHistory,
@@ -19,7 +20,10 @@ const SearchHistory = ({
     setVisibility,
     setPressure,
     setDeg,
+    setWeatherDesc,
+    setIconUrl,
   } = useContext(WeatherContext);
+  const { setForecastData } = useContext(ForecastContext);
 
   const handleCityInHistory = ({ name, lat, lon }) => {
     addLocation(name);
@@ -29,6 +33,13 @@ const SearchHistory = ({
       .then((data) => {
         setTemp(Math.round(data.main.temp));
         setFeelsLike(Math.round(data.main.feels_like));
+        setWeatherDesc(
+          data.weather[0].description[0].toUpperCase() +
+            data.weather[0].description.slice(1)
+        );
+        setIconUrl(
+          `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+        );
 
         setWind(Math.round(data.wind.speed));
         setHumidity(data.main.humidity);
@@ -36,12 +47,19 @@ const SearchHistory = ({
         setPressure(Math.round(data.main.pressure * 0.75));
         setDeg(data.wind.deg);
       })
-      .catch((error) => alert(error))
+      .catch((error) => console.error(error))
       .finally(() => {
         setIsLoading(false);
         setIsOpen(false);
       });
+
+    getWeatherForHours(lat, lon)
+      .then((data) => {
+        setForecastData(data.list);
+      })
+      .catch((error) => alert(error));
   };
+
   return (
     <div className={classes.historyBlock}>
       {errorSearchCity ? <p style={{ color: 'red' }}>{errorSearchCity}</p> : ''}

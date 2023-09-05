@@ -1,4 +1,5 @@
 .tabsCardsItem {
+  flex-shrink: 0;
   position: relative;
   width: 100px;
   height: 143px;
@@ -19,10 +20,12 @@
   height: 100px;
 }
 .tabsCardsItemTempreature {
-  position: relative;
-  top: 76px;
+  position: absolute;
+  top:111px;
+  gap: 18px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-left: 14px;
   font-size: 14px;
   font-weight: 400;
 }

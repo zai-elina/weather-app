@@ -78,7 +78,13 @@ function Form({
   );
 }
 
-function SearchForm({ isOpen, setIsOpen, searchHistory, setSearchHistory, setIsLoading }) {
+function SearchForm({
+  isOpen,
+  setIsOpen,
+  searchHistory,
+  setSearchHistory,
+  setIsLoading,
+}) {
   const [errorSearchCity, setErrorSearchCity] = useState(null);
   const isMobile = useMediaQuery({
     query: '(max-width: 834px)',

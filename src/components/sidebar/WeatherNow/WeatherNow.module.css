@@ -10,6 +10,8 @@
 }
 
 .weatherImage {
+  width: 200px;
+  height: 200px;
   margin: 0px 130px 0;
 }
 
@@ -25,7 +27,9 @@
   line-height: 59px;
 }
 .weatherPrecipitation {
-  margin-top: 17px;
+  max-width: 80%;
+  text-align: center;
+  margin: 17px auto 17px;
   font-size: 36px;
   font-weight: 700;
   line-height: 36px;
@@ -42,7 +46,7 @@
 .todayInformation {
   display: flex;
   column-gap: 88px;
-  margin: 78px 86px 0;
+  margin: 70px 86px 0;
   justify-content: space-between;
   font-size: 18px;
   font-weight: 400;

@@ -14,6 +14,8 @@ export const WeatherProvider = ({ children }) => {
   const [humidity, setHumidity] = useState('');
   const [visibility, setVisibility] = useState('');
   const [deg, setDeg] = useState('');
+  const [weatherDesc, setWeatherDesc] = useState('');
+  const [iconUrl, setIconUrl] = useState('');
 
   const addLocation = (newLocation) => {
     setLocation(newLocation);
@@ -40,6 +42,10 @@ export const WeatherProvider = ({ children }) => {
     setVisibility,
     deg,
     setDeg,
+    weatherDesc,
+    setWeatherDesc,
+    iconUrl,
+    setIconUrl,
   };
 
   return (

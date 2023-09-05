@@ -1,12 +1,80 @@
-import React from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import classes from './TabsPanel.module.css';
 import { TabsCards } from './TabsCards/TabsCards';
+import { useMediaQuery } from 'react-responsive';
+import { ForecastContext } from '../../../providers/ForecastProvider';
+import { parseHourCast, parseWeekCast } from '../../../utils/weatherParse';
 
-const TabsPanel = ({ activeTab, isLoadingTabsCards }) => {
+const TabsPanel = ({ activeTab, isLoadingTabsCards, offset, setOffset }) => {
+  const prevRef = useRef();
+  const nextRef = useRef();
+  const isDesktop = useMediaQuery({
+    query: '(min-width: 1439.5px)',
+  });
+  const { forecastData } = useContext(ForecastContext);
+  const activeArray =
+    forecastData.length !== 0 && activeTab === 'week'
+      ? parseWeekCast(forecastData)
+      : forecastData.length !== 0
+      ? parseHourCast(forecastData)
+      : [];
+
+  useEffect(() => {
+    setOffset(0);
+    const prevButton = document.getElementById('next');
+    prevButton.classList.remove('disable');
+    prevButton.removeAttribute('disabled', '');
+  }, [isDesktop]);
+
+  const handleLeftArrow = () => {
+    setOffset((currentOffset) => {
+      let newOffset = currentOffset + 124;
+      const maxOffset = isDesktop
+        ? -124 * (activeArray.length - 8)
+        : -124 * (activeArray.length - 5);
+
+      newOffset = Math.min(newOffset, 0);
+
+      if (newOffset === maxOffset) {
+        nextRef.current.classList.remove('disable');
+        nextRef.current.removeAttribute('disabled', '');
+      }
+
+      return newOffset;
+    });
+  };
+  const handleRightArrow = () => {
+    setOffset((currentOffset) => {
+      let newOffset = currentOffset - 124;
+      const maxOffset = isDesktop
+        ? -124 * (activeArray.length - 6)
+        : -(124 * (activeArray.length - 3));
+
+      newOffset = Math.max(newOffset, maxOffset);
+
+      if (newOffset < 0) {
+        prevRef.current.classList.remove('disable');
+        prevRef.current.removeAttribute('disabled', '');
+      }
+      if (newOffset === maxOffset) {
+        nextRef.current.classList.add('disable');
+        nextRef.current.setAttribute('disabled', '');
+      }
+
+      return newOffset;
+    });
+  };
   return (
     <div className={classes.tabsPanel}>
       <div className={classes.tabsPanelContent}>
-        <div className={classes.buttonPrevNext} disabled>
+        <div
+          ref={prevRef}
+          className={`${classes.buttonPrevNext} ${
+            offset === 0 ? 'disable' : ''
+          }`}
+          onClick={() => handleLeftArrow()}
+          disabled={offset === 0}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="38"
@@ -15,7 +83,6 @@ const TabsPanel = ({ activeTab, isLoadingTabsCards }) => {
             fill="none"
           >
             <circle
-              opacity="0.3"
               cx="19"
               cy="19"
               r="19"
@@ -23,7 +90,6 @@ const TabsPanel = ({ activeTab, isLoadingTabsCards }) => {
               fill="white"
             />
             <path
-              opacity="0.3"
               d="M23 24.5L13.8735 18.8503C13.242 18.4593 13.242 17.5407 13.8735 17.1497L23 11.5"
               stroke="#ACACAC"
               strokeWidth="3"
@@ -33,8 +99,17 @@ const TabsPanel = ({ activeTab, isLoadingTabsCards }) => {
         <TabsCards
           isLoadingTabsCards={isLoadingTabsCards}
           activeTab={activeTab}
+          offset={offset}
         />
-        <div className={classes.buttonPrevNext}>
+        <div
+          id="next"
+          ref={nextRef}
+          onClick={() => handleRightArrow()}
+          className={`${classes.buttonPrevNext} ${
+            activeArray.length === 6 && isDesktop ? 'disable' : ''
+          }`}
+          disabled={activeArray.length === 6 && isDesktop }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="38"
