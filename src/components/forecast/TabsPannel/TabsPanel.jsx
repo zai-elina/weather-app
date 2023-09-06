@@ -2,8 +2,11 @@ import React, { useEffect, useRef, useContext } from 'react';
 import classes from './TabsPanel.module.css';
 import { TabsCards } from './TabsCards/TabsCards';
 import { useMediaQuery } from 'react-responsive';
-import { ForecastContext } from '../../../providers/ForecastProvider';
-import { parseHourCast, parseWeekCast } from '../../../utils/weatherParse';
+import { useSelector } from 'react-redux';
+import {
+  weatherForHoursSelector,
+  weatherForWeekSelector,
+} from '../../../store/selectors/weatherDataSelector';
 
 const TabsPanel = ({ activeTab, isLoadingTabsCards, offset, setOffset }) => {
   const prevRef = useRef();
@@ -11,13 +14,9 @@ const TabsPanel = ({ activeTab, isLoadingTabsCards, offset, setOffset }) => {
   const isDesktop = useMediaQuery({
     query: '(min-width: 1439.5px)',
   });
-  const { forecastData } = useContext(ForecastContext);
-  const activeArray =
-    forecastData.length !== 0 && activeTab === 'week'
-      ? parseWeekCast(forecastData)
-      : forecastData.length !== 0
-      ? parseHourCast(forecastData)
-      : [];
+  const weekForecast = useSelector(weatherForWeekSelector);
+  const hoursForecast = useSelector(weatherForHoursSelector);
+  const activeArray = activeTab === 'week' ? weekForecast : hoursForecast;
 
   useEffect(() => {
     setOffset(0);
@@ -108,7 +107,7 @@ const TabsPanel = ({ activeTab, isLoadingTabsCards, offset, setOffset }) => {
           className={`${classes.buttonPrevNext} ${
             activeArray.length === 6 && isDesktop ? 'disable' : ''
           }`}
-          disabled={activeArray.length === 6 && isDesktop }
+          disabled={activeArray.length === 6 && isDesktop}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

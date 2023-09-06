@@ -5,54 +5,50 @@ import './styles/App.css';
 import { useContext, useEffect, useState } from 'react';
 import { WeatherContext } from './providers/WeatherProvider';
 import { getWeatherInformation, getWeatherForHours } from './api/api';
-import { ForecastContext } from './providers/ForecastProvider';
+import {
+  setToday,
+  setHourly,
+  setWeekly,
+  setCurrentCards,
+} from './store/slices/weatherDataSlice';
+import { parseHourCast, parseWeekCast } from './utils/weatherParse';
+import { useDispatch } from 'react-redux';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const {
-    lat,
-    lon,
-    setTemp,
-    setFeelsLike,
-    setWind,
-    setPressure,
-    setHumidity,
-    setVisibility,
-    setDeg,
-    setWeatherDesc,
-    setIconUrl,
-  } = useContext(WeatherContext);
-  const { setForecastData } = useContext(ForecastContext);
+  const { lat, lon } = useContext(WeatherContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsLoading(true);
     getWeatherInformation('55.6256', '37.6064')
       .then((data) => {
-        setTemp(Math.round(data.main.temp));
-        setFeelsLike(Math.round(data.main.feels_like));
-        setWeatherDesc(
-          data.weather[0].description[0].toUpperCase() +
-            data.weather[0].description.slice(1)
-        );
-        setIconUrl(
-          `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`
-        );
+        const weatherToday = {
+          temp: Math.round(data.main.temp),
+          desc:
+            data.weather[0].description[0].toUpperCase() +
+            data.weather[0].description.slice(1),
+          iconUrl: `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
+          feelsLike: Math.round(data.main.feels_like),
+          humidity: data.main.humidity,
+          pressure: Math.round(data.main.pressure * 0.75),
+          wind: Math.round(data.wind.speed),
+          deg: Math.round(data.wind.deg),
+          visibility: data.visibility / 1000,
+        };
 
-        setWind(Math.round(data.wind.speed));
-        setHumidity(data.main.humidity);
-        setVisibility(data.visibility / 1000);
-        setPressure(Math.round(data.main.pressure * 0.75));
+        dispatch(setToday(weatherToday));
       })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .catch((error) => console.error(error));
 
     getWeatherForHours('55.6256', '37.6064')
       .then((data) => {
-        setForecastData(data.list);
+        dispatch(setWeekly(parseWeekCast(data.list)));
+        dispatch(setHourly(parseHourCast(data.list)));
       })
       .catch((error) => alert(error));
+
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -60,32 +56,31 @@ function App() {
       setIsLoading(true);
       getWeatherInformation(lat, lon)
         .then((data) => {
-          setTemp(Math.round(data.main.temp));
-          setFeelsLike(Math.round(data.main.feels_like));
-          setWeatherDesc(
-            data.weather[0].description[0].toUpperCase() +
-              data.weather[0].description.slice(1)
-          );
-          setIconUrl(
-            `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
-          );
+          const weatherToday = {
+            temp: Math.round(data.main.temp),
+            desc:
+              data.weather[0].description[0].toUpperCase() +
+              data.weather[0].description.slice(1),
+            iconUrl: `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
+            feelsLike: Math.round(data.main.feels_like),
+            humidity: data.main.humidity,
+            pressure: Math.round(data.main.pressure * 0.75),
+            wind: Math.round(data.wind.speed),
+            deg: Math.round(data.wind.deg),
+            visibility: data.visibility / 1000,
+          };
 
-          setWind(Math.round(data.wind.speed));
-          setHumidity(data.main.humidity);
-          setVisibility(data.visibility / 1000);
-          setPressure(Math.round(data.main.pressure * 0.75));
-          setDeg(data.wind.deg);
+          dispatch(setToday(weatherToday));
         })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          setIsLoading(false);
-        });
+        .catch((error) => console.error(error));
 
       getWeatherForHours(lat, lon)
         .then((data) => {
-          setForecastData(data.list);
+          dispatch(setWeekly(parseWeekCast(data.list)));
+          dispatch(setHourly(parseHourCast(data.list)));
         })
         .catch((error) => alert(error));
+      setIsLoading(false);
     }
   }, [lat]);
 

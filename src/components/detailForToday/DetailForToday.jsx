@@ -3,11 +3,13 @@ import Loader from '../loader/Loader';
 import classes from './DetailForToday.module.css';
 import DetailIndicator from './DetailIndicator/DetailIndicator';
 import detailClasses from './DetailIndicator/DetailIndicator.module.css';
-import { WeatherContext } from '../../providers/WeatherProvider';
+import { useSelector } from 'react-redux';
+import { weatherTodaySelector } from '../../store/selectors/weatherDataSelector';
 
 export default function DetailForToday({ isLoading }) {
-  const { wind, pressure, humidity, visibility, deg } =
-    useContext(WeatherContext);
+  const today = useSelector(weatherTodaySelector);
+  const { wind, pressure, humidity, visibility, deg } = today;
+
   const indicators = [
     { id: 0, title: 'Скорость ветра', value: wind, name: 'м/с', deg: deg },
     { id: 1, title: 'Влажность', value: humidity, name: '%' },

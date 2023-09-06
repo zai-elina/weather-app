@@ -2,7 +2,13 @@ import React, { useContext } from 'react';
 import classes from './SearchHistory.module.css';
 import { WeatherContext } from '../../../providers/WeatherProvider';
 import { getWeatherForHours, getWeatherInformation } from '../../../api/api';
-import { ForecastContext } from '../../../providers/ForecastProvider';
+import { useDispatch } from 'react-redux';
+import {
+  setToday,
+  setHourly,
+  setWeekly,
+} from '../../../store/slices/weatherDataSlice';
+import { parseHourCast, parseWeekCast } from '../../../utils/weatherParse';
 
 const SearchHistory = ({
   searchHistory,
@@ -10,20 +16,8 @@ const SearchHistory = ({
   errorSearchCity,
   setIsLoading,
 }) => {
-  const {
-    location,
-    addLocation,
-    setTemp,
-    setFeelsLike,
-    setWind,
-    setHumidity,
-    setVisibility,
-    setPressure,
-    setDeg,
-    setWeatherDesc,
-    setIconUrl,
-  } = useContext(WeatherContext);
-  const { setForecastData } = useContext(ForecastContext);
+  const { location, addLocation } = useContext(WeatherContext);
+  const dispatch = useDispatch();
 
   const handleCityInHistory = ({ name, lat, lon }) => {
     addLocation(name);
@@ -31,21 +25,21 @@ const SearchHistory = ({
     setIsLoading(true);
     getWeatherInformation(lat, lon)
       .then((data) => {
-        setTemp(Math.round(data.main.temp));
-        setFeelsLike(Math.round(data.main.feels_like));
-        setWeatherDesc(
-          data.weather[0].description[0].toUpperCase() +
-            data.weather[0].description.slice(1)
-        );
-        setIconUrl(
-          `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
-        );
+        const weatherToday = {
+          temp: Math.round(data.main.temp),
+          desc:
+            data.weather[0].description[0].toUpperCase() +
+            data.weather[0].description.slice(1),
+          iconUrl: `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
+          feelsLike: Math.round(data.main.feels_like),
+          humidity: data.main.humidity,
+          pressure: Math.round(data.main.pressure * 0.75),
+          wind: Math.round(data.wind.speed),
+          deg: Math.round(data.wind.deg),
+          visibility: data.visibility / 1000,
+        };
 
-        setWind(Math.round(data.wind.speed));
-        setHumidity(data.main.humidity);
-        setVisibility(data.visibility / 1000);
-        setPressure(Math.round(data.main.pressure * 0.75));
-        setDeg(data.wind.deg);
+        dispatch(setToday(weatherToday));
       })
       .catch((error) => console.error(error))
       .finally(() => {
@@ -55,7 +49,8 @@ const SearchHistory = ({
 
     getWeatherForHours(lat, lon)
       .then((data) => {
-        setForecastData(data.list);
+        dispatch(setWeekly(parseWeekCast(data.list)));
+        dispatch(setHourly(parseHourCast(data.list)));
       })
       .catch((error) => alert(error));
   };
