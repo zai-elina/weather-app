@@ -1,19 +1,19 @@
 export const getFormatDate = () => {
   const date = new Date();
   const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-  const month = [
-    'Января',
-    'Февраля',
-    'Марта',
-    'Апреля',
-    'Мая',
-    'Июня',
-    'Июля',
-    'Августа',
-    'Сентября',
-    'Ноября',
-    'Декабря',
+  const months = [
+    'янв',
+    'фев',
+    'мар',
+    'апр',
+    'мая',
+    'июня',
+    'июля',
+    'авг',
+    'сен',
+    'нояб',
+    'дек',
   ];
 
-  return `${days[date.getDay()]}, ${date.getDate()} ${month[date.getMonth()]}`;
+  return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]}`;
 };

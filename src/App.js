@@ -35,7 +35,7 @@ function App() {
             data.weather[0].description.slice(1)
         );
         setIconUrl(
-          `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+          `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`
         );
 
         setWind(Math.round(data.wind.speed));
