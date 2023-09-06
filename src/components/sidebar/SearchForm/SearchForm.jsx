@@ -3,7 +3,8 @@ import classes from './SearchForm.module.css';
 import { useMediaQuery } from 'react-responsive';
 import { getCity } from '../../../api/api';
 import SearchHistory from '../SearchHistory/SearchHistory';
-import { WeatherContext } from '../../../providers/WeatherProvider';
+import { useDispatch } from 'react-redux';
+import { setLocation } from '../../../store/slices/currentLocationSlice';
 
 function Form({
   setIsOpen,
@@ -12,7 +13,7 @@ function Form({
   setErrorSearchCity,
 }) {
   const [inputCity, setInputCity] = useState('');
-  const { addLocation, setLat, setLon } = useContext(WeatherContext);
+  const dispatch = useDispatch();
 
   const searchCity = (e) => {
     e.preventDefault();
@@ -26,11 +27,14 @@ function Form({
           }
           const nameCity = data[0]?.name;
 
-          addLocation(nameCity);
-          localStorage['location'] = nameCity;
-          setLat(data[0].lat);
-          setLon(data[0].lon);
-
+          dispatch(
+            setLocation({ city: nameCity, lat: data[0].lat, lon: data[0].lon })
+          );
+          localStorage['location'] = JSON.stringify({
+            city: nameCity,
+            lat: data[0].lat,
+            lon: data[0].lon,
+          });
           setIsOpen(false);
 
           searchHistory.length === 0
@@ -67,7 +71,7 @@ function Form({
         <input
           className={classes.searchInput}
           type="search"
-          placeholder="Москва"
+          placeholder="Введите название"
           value={inputCity}
           onChange={(e) => setInputCity(e.target.value)}
         />
@@ -78,12 +82,7 @@ function Form({
   );
 }
 
-function SearchForm({
-  isOpen,
-  setIsOpen,
-  searchHistory,
-  setSearchHistory,
-}) {
+function SearchForm({ isOpen, setIsOpen, searchHistory, setSearchHistory }) {
   const [errorSearchCity, setErrorSearchCity] = useState(null);
   const isMobile = useMediaQuery({
     query: '(max-width: 834px)',

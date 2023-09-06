@@ -14,7 +14,10 @@ export default function Sidebar() {
 
   return (
     <>
-      <section className={classes.sidebar}>
+      <section
+        className={classes.sidebar}
+        style={isLoading ? { justifyContent: 'flex-start' } : {}}
+      >
         <SidebarHeader setIsOpen={setIsOpen} />
         {isLoading ? (
           <div className={classes.laoder}>

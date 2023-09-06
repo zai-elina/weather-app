@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import classes from './Location.module.css';
-import { WeatherContext } from '../../../providers/WeatherProvider';
+import { currentLocationSelector } from '../../../store/selectors/currentLocationSelector';
 
 function Location() {
-  const { location } = useContext(WeatherContext);
+  const { city } = useSelector(currentLocationSelector);
   return (
     <div className={classes.location}>
       <svg
@@ -18,7 +18,7 @@ function Location() {
           fill="#EC6E4D"
         />
       </svg>
-      <div>{location}</div>
+      <div>{city}</div>
     </div>
   );
 }

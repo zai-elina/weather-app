@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 import { weatherTodaySelector } from '../../../store/selectors/weatherDataSelector';
 
 function WeatherNow() {
-  const today = useSelector(weatherTodaySelector);
-  const { temp, feelsLike, desc, iconUrl } = today;
+  const { temp, feelsLike, desc, iconUrl } = useSelector(weatherTodaySelector);
   return (
     <>
       <div className={classes.weather}>

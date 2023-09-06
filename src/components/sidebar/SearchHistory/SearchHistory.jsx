@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import classes from './SearchHistory.module.css';
-import { WeatherContext } from '../../../providers/WeatherProvider';
 import { getWeatherForHours, getWeatherInformation } from '../../../api/api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setToday,
   setHourly,
@@ -10,15 +9,20 @@ import {
 } from '../../../store/slices/weatherDataSlice';
 import { parseHourCast, parseWeekCast } from '../../../utils/weatherParse';
 import { setIsLoading } from '../../../store/slices/isLoadingSlice';
+import { currentLocationSelector } from '../../../store/selectors/currentLocationSelector';
+import { setLocation } from '../../../store/slices/currentLocationSlice';
 
 const SearchHistory = ({ searchHistory, setIsOpen, errorSearchCity }) => {
-  const { location, addLocation } = useContext(WeatherContext);
+  const { city } = useSelector(currentLocationSelector);
   const dispatch = useDispatch();
 
   const handleCityInHistory = ({ name, lat, lon }) => {
-    addLocation(name);
-    localStorage.setItem('location', name);
+    dispatch(setLocation({ city: name, lat: lat, lon: lon }));
+
+    localStorage['location']=JSON.stringify({ city: name, lat: lat, lon: lon })
+
     dispatch(setIsLoading(true));
+    
     getWeatherInformation(lat, lon)
       .then((data) => {
         const weatherToday = {
@@ -59,7 +63,7 @@ const SearchHistory = ({ searchHistory, setIsOpen, errorSearchCity }) => {
         return (
           <div
             className={`${classes.historyCity}${
-              location === name ? ` ${classes.activeCity}` : ''
+              city === name ? ` ${classes.activeCity}` : ''
             }`}
             key={index}
             onClick={() => handleCityInHistory({ name, lat, lon })}
