@@ -83,7 +83,6 @@ function SearchForm({
   setIsOpen,
   searchHistory,
   setSearchHistory,
-  setIsLoading,
 }) {
   const [errorSearchCity, setErrorSearchCity] = useState(null);
   const isMobile = useMediaQuery({
@@ -118,7 +117,6 @@ function SearchForm({
         searchHistory={searchHistory}
         setIsOpen={setIsOpen}
         errorSearchCity={errorSearchCity}
-        setIsLoading={setIsLoading}
       />
     </div>
   );

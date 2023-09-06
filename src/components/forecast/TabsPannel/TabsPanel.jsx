@@ -8,7 +8,7 @@ import {
   weatherForWeekSelector,
 } from '../../../store/selectors/weatherDataSelector';
 
-const TabsPanel = ({ activeTab, isLoadingTabsCards, offset, setOffset }) => {
+const TabsPanel = ({ activeTab, offset, setOffset }) => {
   const prevRef = useRef();
   const nextRef = useRef();
   const isDesktop = useMediaQuery({
@@ -96,7 +96,6 @@ const TabsPanel = ({ activeTab, isLoadingTabsCards, offset, setOffset }) => {
           </svg>
         </div>
         <TabsCards
-          isLoadingTabsCards={isLoadingTabsCards}
           activeTab={activeTab}
           offset={offset}
         />

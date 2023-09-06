@@ -5,8 +5,10 @@ import DetailIndicator from './DetailIndicator/DetailIndicator';
 import detailClasses from './DetailIndicator/DetailIndicator.module.css';
 import { useSelector } from 'react-redux';
 import { weatherTodaySelector } from '../../store/selectors/weatherDataSelector';
+import { isLoadingSelector } from '../../store/selectors/isLoadingSelector';
 
-export default function DetailForToday({ isLoading }) {
+export default function DetailForToday() {
+  const isLoading = useSelector(isLoadingSelector)
   const today = useSelector(weatherTodaySelector);
   const { wind, pressure, humidity, visibility, deg } = today;
 

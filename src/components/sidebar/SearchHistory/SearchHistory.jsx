@@ -9,20 +9,16 @@ import {
   setWeekly,
 } from '../../../store/slices/weatherDataSlice';
 import { parseHourCast, parseWeekCast } from '../../../utils/weatherParse';
+import { setIsLoading } from '../../../store/slices/isLoadingSlice';
 
-const SearchHistory = ({
-  searchHistory,
-  setIsOpen,
-  errorSearchCity,
-  setIsLoading,
-}) => {
+const SearchHistory = ({ searchHistory, setIsOpen, errorSearchCity }) => {
   const { location, addLocation } = useContext(WeatherContext);
   const dispatch = useDispatch();
 
   const handleCityInHistory = ({ name, lat, lon }) => {
     addLocation(name);
     localStorage.setItem('location', name);
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     getWeatherInformation(lat, lon)
       .then((data) => {
         const weatherToday = {
@@ -43,7 +39,6 @@ const SearchHistory = ({
       })
       .catch((error) => console.error(error))
       .finally(() => {
-        setIsLoading(false);
         setIsOpen(false);
       });
 
@@ -53,6 +48,7 @@ const SearchHistory = ({
         dispatch(setHourly(parseHourCast(data.list)));
       })
       .catch((error) => alert(error));
+    dispatch(setIsLoading(false));
   };
 
   return (

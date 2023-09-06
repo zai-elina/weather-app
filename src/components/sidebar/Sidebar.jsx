@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useDebugValue, useState } from 'react';
 import classes from './Sidebar.module.css';
 import SidebarHeader from './SidebarHeader/SidebarHeader';
 import WeatherNow from './WeatherNow/WeatherNow';
 import SearchForm from './SearchForm/SearchForm';
 import Loader from '../loader/Loader';
+import { useSelector } from 'react-redux';
+import { isLoadingSelector } from '../../store/selectors/isLoadingSelector';
 
-export default function Sidebar({ isLoading, setIsLoading }) {
+export default function Sidebar() {
+  const isLoading = useSelector(isLoadingSelector);
   const [isOpen, setIsOpen] = useState(false);
   const [searchHistory, setSearchHistory] = useState([]);
 
@@ -18,7 +21,7 @@ export default function Sidebar({ isLoading, setIsLoading }) {
             <Loader />
           </div>
         ) : (
-          <WeatherNow/>
+          <WeatherNow />
         )}
       </section>
       <SearchForm
@@ -26,7 +29,6 @@ export default function Sidebar({ isLoading, setIsLoading }) {
         setIsOpen={setIsOpen}
         searchHistory={searchHistory}
         setSearchHistory={setSearchHistory}
-        setIsLoading={setIsLoading}
       />
     </>
   );

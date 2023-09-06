@@ -9,18 +9,17 @@ import {
   setToday,
   setHourly,
   setWeekly,
-  setCurrentCards,
 } from './store/slices/weatherDataSlice';
 import { parseHourCast, parseWeekCast } from './utils/weatherParse';
 import { useDispatch } from 'react-redux';
+import { setIsLoading } from './store/slices/isLoadingSlice';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
   const { lat, lon } = useContext(WeatherContext);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     getWeatherInformation('55.6256', '37.6064')
       .then((data) => {
         const weatherToday = {
@@ -46,14 +45,15 @@ function App() {
         dispatch(setWeekly(parseWeekCast(data.list)));
         dispatch(setHourly(parseHourCast(data.list)));
       })
-      .catch((error) => alert(error));
-
-    setIsLoading(false);
+      .catch((error) => alert(error))
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
   }, []);
 
   useEffect(() => {
     if (lat && lon) {
-      setIsLoading(true);
+      dispatch(setIsLoading(true));
       getWeatherInformation(lat, lon)
         .then((data) => {
           const weatherToday = {
@@ -79,17 +79,19 @@ function App() {
           dispatch(setWeekly(parseWeekCast(data.list)));
           dispatch(setHourly(parseHourCast(data.list)));
         })
-        .catch((error) => alert(error));
-      setIsLoading(false);
+        .catch((error) => alert(error))
+        .finally(() => {
+          dispatch(setIsLoading(false));
+        });
     }
   }, [lat]);
 
   return (
     <main className="main">
-      <Sidebar isLoading={isLoading} setIsLoading={setIsLoading} />
+      <Sidebar />
       <div className="center-block">
-        <Forecast isLoading={isLoading} />
-        <DetailForToday isLoading={isLoading} />
+        <Forecast />
+        <DetailForToday />
       </div>
     </main>
   );

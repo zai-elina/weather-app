@@ -7,9 +7,11 @@ import {
   weatherForHoursSelector,
   weatherForWeekSelector,
 } from '../../../../store/selectors/weatherDataSelector';
+import { isLoadingSelector } from '../../../../store/selectors/isLoadingSelector';
 
-export function TabsCards({ activeTab, isLoadingTabsCards, offset }) {
-  const loadingCards = ['', '', '', '', '', ''];
+export function TabsCards({ activeTab, offset }) {
+  const isLoading = useSelector(isLoadingSelector)
+  const loadingCards = Array(6).fill('');
   const isMobile = useMediaQuery({
     query: '(max-width: 834px)',
   });
@@ -20,7 +22,7 @@ export function TabsCards({ activeTab, isLoadingTabsCards, offset }) {
     <>
       {isMobile ? (
         <div className={classes.tabsCards}>
-          {isLoadingTabsCards
+          {isLoading
             ? loadingCards.map((item, index) => (
                 <div key={index} className={classes.tabsCardsItem}>
                   <Loader />
@@ -40,7 +42,7 @@ export function TabsCards({ activeTab, isLoadingTabsCards, offset }) {
             className={classes.tabsCards}
             style={{ transform: `translateX(${offset}px)` }}
           >
-            {isLoadingTabsCards
+            {isLoading
               ? loadingCards.map((item, index) => (
                   <div key={index} className={classes.tabsCardsItem}>
                     <Loader />
